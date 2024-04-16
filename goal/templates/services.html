@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goal Detail</title>
+    <style>
+      /* Your CSS styles */
+    </style>
+  </head>
+  <body>
+    <h3>Goal Name: {{ goal.goalName }}</h3>
+    <br />
+    <h1>SERVICES</h1>
+    <br />
+    {% if goal.mentor %}
+    
+      {% csrf_token %}
+      <table class="todo-table">
+        <thead>
+          <tr>
+            <th>Todo Name</th>
+            <th>Description</th>
+            <th>Url</th>
+            <th>Image Url</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Add Todo</th>
+            <!-- Changed the heading to "Add Todo" -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for mentortodo in goal.mentor.mentortodo_set.all %}
+          <tr>
+            <td>{{ mentortodo.todoName }}</td>
+            <td>{{ mentortodo.description }}</td>
+            <td><a href="{{ mentortodo.url }}">{{ mentortodo.url }}</a></td>
+            <td>
+              <a href="{{ mentortodo.imageUrl }}">{{ mentortodo.imageUrl }}</a>
+            </td>
+            <td>
+              <input
+                type="date"
+                name="beginDate_{{ mentortodo.id }}"
+                required
+              />
+            </td>
+            <td>
+              <input type="date" name="endDate_{{ mentortodo.id }}" required />
+            </td>
+            <td>
+              <select name="status_{{ mentortodo.id }}" required>
+                <option value="New">New</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </td>
+            <td>
+              <input type="hidden" name="todo_id" value="{{ mentortodo.pk }}" />
+              <input type="submit" value="Add Todo" />
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+    {% endif %}
+
+    <br />
+
+    <div class="button-container">
+      <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

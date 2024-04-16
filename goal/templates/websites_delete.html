@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Confirm Website Deletion</title>
+  </head>
+  <body>
+    <h2>Confirm Deletion</h2>
+    <p>Are you sure you want to delete the website "{{ website.name }}"?</p>
+    <form action="{% url 'websites_delete' pk=website.pk %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Delete" class="btn delete-btn" />
+      <a
+        href="{% url 'websites_list' mentor_id=website.mentor_id %}"
+        class="btn cancel-btn"
+        >Cancel</a
+      >
+    </form>
+  </body>
+</html>

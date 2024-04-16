@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customize Goal</title>
+    <style>
+      .back-button {
+        display: block;
+        margin: 0 auto;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+      .back-button:hover {
+        background-color: #0056b3;
+      }
+      .header-nav {
+        display: flex; /* Use flexbox to align header and nav */
+        justify-content: space-between; /* Space elements evenly */
+        align-items: center; /* Align items vertically in the center */
+        background-color: #f4f4f4; /* Set background color for the header */
+        padding: 10px; /* Add padding to the header */
+      }
+
+      nav {
+        background-color: #e9ecef; /* Set background color for the navigation */
+        padding: 10px; /* Add padding to the navigation */
+        text-align: right; /* Right-align the navigation content */
+      }
+
+      nav form {
+        display: inline-block; /* Make forms inline-block to align buttons horizontally */
+        margin-right: 10px; /* Add some space between buttons */
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #cc2b5e, #753a88);
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-nav">
+      <header>
+        <!-- My Account button-->
+        <form action="{% url 'mentor_list' %}" method="get">
+          <button type="submit">Home</button>
+        </form>
+      </header>
+      <nav>
+        <!-- Navigation buttons-->
+        <form action="{% url 'create_goal' %}" method="get">
+          <button type="submit">Customized Goal</button>
+        </form>
+        <form action="{% url 'create_mentor' %}" method="get">
+          <button type="submit">Mentor Goals</button>
+        </form>
+        <form action="{% url 'my_goals' %}" method="get">
+          <button type="submit">My Goals</button>
+        </form>
+        <form action="{% url 'user_mentor_titles' %}" method="get">
+          <button type="submit">Goals</button>
+        </form>
+        <!-- Logout button-->
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+      </nav>
+    </div>
+    <br />
+    <h1>Customize Goal</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Save Customization</button>
+    </form>
+    <br />
+    <button class="back-button" onclick="goBack()">Go Back</button>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

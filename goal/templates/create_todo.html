@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Todo</title>
+    <style>
+      body {
+        background: linear-gradient(to right, #7028e4, #e5b2ca);
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      form {
+        background: linear-gradient(to left, #cc2b5e, #753a88);
+        max-width: 400px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      form input[type="text"],
+      form textarea {
+        width: 70%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      form button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      form button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+      .button-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .button-container button,
+      .back-button {
+        background: linear-gradient(to left, #cc2b5e, #753a88);
+        margin: 0 5px; /* Add margin between buttons */
+      }
+
+      .button-container form {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Create Todo</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <div class="button-container">
+        <button type="submit">Save Todo</button>
+        <button type="submit" class="back-button" onclick="goBack()">
+          Back
+        </button>
+      </div>
+    </form>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

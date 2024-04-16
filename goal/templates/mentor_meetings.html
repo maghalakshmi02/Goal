@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Meetings</title>
+  </head>
+  <body>
+    <h1>Meetings Created by Mentor</h1>
+    <ul>
+      {% for meeting in mentor_meetings %}
+      <li>
+        <p class="label">Title: {{ meeting.title }}</p>
+
+        <p class="label">Author: {{ meeting.author }}</p>
+
+        <p class="label">Ratings: {{ meeting.ratings }}</p>
+
+        <p class="label">ISBN: {{ meeting.isbn }}</p>
+
+        <p class="label">Description: {{ meeting.description }}</p>
+
+        <p class="label">
+          URL: <a href="{{ meeting.url }}">{{ meeting.url }}</a>
+        </p>
+      </li>
+      <!-- You can display other book details here -->
+      
+    </ul>
+    <br /><br />
+    <div class="containerz">
+      <!-- Update Button -->
+      <!--<form action="{% url 'meetings_edit' pk=meeting_ids.0%}" method="get">
+        <button type="submit">Update Meeting</button>
+      </form>-->
+      
+        
+        <form action="{% url 'meeting_edit' pk=meeting.id %}" method="get">
+          <button style="background: linear-gradient(to right, #cc2b5e, #753a88);"type="submit">Update Meeting</button>
+        </form>
+      </div>
+<br/>
+      <!-- Delete Button -->
+      <form action="{% url 'meetings_delete' meeting.id%}" method="post">
+        {% csrf_token %}
+        <button
+        style="background: linear-gradient(to right, #cc2b5e, #753a88);"
+          type="submit"
+          onclick="return confirm('Are you sure you want to delete your account?');"
+        >
+          Delete Meeting
+        </button>
+      </form>
+      {% endfor %}
+      <button class="back-button" onclick="goBack()">Go Back</button>
+    </div>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,235 @@
+<!--<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="icon" href="{%static 'images/logo.jpg'%}" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #fff; /* Set text color to white for better contrast */
+      }
+
+      .container {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .container h2 {
+        margin-bottom: 20px;
+        color: #fff; /* Match text color with body */
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #000; /* Set text color to black for better contrast */
+      }
+
+      button {
+        background: linear-gradient(to bottom, #fc4a1a, #f7b733);
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background: linear-gradient(to right, #f7b733, #fc4a1a);
+      }
+
+      .signup-button {
+        display: inline-block;
+        width: calc(70px + 20px);
+        padding: 10px;
+        background: linear-gradient(to bottom, #1cb5e0, #000851);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .signup-button:hover {
+        background: linear-gradient(to right, #000851, #1cb5e0);
+      }
+    </style>
+  </head>
+  <body>
+    <div style="width: 100%; background-color: yellow; height: 300px">
+      <img
+        src="{% static 'images/logo.jpg' %}"
+        style="width:40%;height=100px;border-radius:10px 100px 100px"
+      />
+    </div>
+
+    <div class="container">
+      <h1>KAVIGAI</h1>
+      <h2>Login</h2>
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button class="signup-button" type="submit">Login</button>
+      </form>
+      <p>
+        Don't have an account, please
+        <a href="{% url 'register' %}" class="signup-button">sign up</a>
+      </p>
+    </div>
+  </body>
+</html>
+-->
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="icon" href="{% static 'images/logo.jpg' %}" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #fff;
+      }
+
+      .container {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .container h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      .container h1 img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #000;
+      }
+
+      button {
+        background: linear-gradient(to bottom, #fc4a1a, #f7b733);
+        color: #fff;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background: linear-gradient(to right, #f7b733, #fc4a1a);
+      }
+
+      .signup-button {
+        display: inline-block;
+        width: calc(70px + 20px);
+        padding: 10px;
+        background: linear-gradient(to bottom, #1cb5e0, #000851);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .signup-button:hover {
+        background: linear-gradient(to right, #000851, #1cb5e0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1><img src="{% static 'images/logo.jpg' %}" alt="Logo" /> KAVIGAI</h1>
+      <h2>Login</h2>
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button class="signup-button" type="submit">Login</button>
+      </form>
+      <p>
+        Don't have an account, please
+        <a href="{% url 'register' %}" class="signup-button">sign up</a>
+      </p>
+    </div>
+  </body>
+</html>

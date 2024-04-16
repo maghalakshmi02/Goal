@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goal Detail</title>
+    <style>
+      body {
+        
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+
+      p {
+        margin-bottom: 10px;
+      }
+
+      strong {
+        font-weight: bold;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 5px;
+      }
+
+      form {
+        text-align: center;
+      }
+
+      input[type="submit"],
+      button {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover,
+      button:hover {
+        background-color: #0056b3;
+      }
+      .back-button {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        display: block;
+        margin: 0 auto;
+        padding: 8px 16px; /* Adjust padding as needed */
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px; /* Adjust font size as needed */
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button:hover {
+        background-color: #0056b3;
+      }
+
+      .button-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .button-container button,
+      .back-button {
+        margin: 0 5px; /* Add margin between buttons */
+      }
+
+      .button-container form {
+        display: inline-block;
+      }
+      /* Style for the todo table */
+      .todo-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      /* Style for table header */
+      .todo-table th {
+        background-color: #f2f2f2;
+        padding: 8px;
+        text-align: left;
+      }
+
+      /* Style for table rows */
+      .todo-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      /* Style for table data cells */
+      .todo-table td {
+        padding: 8px;
+      }
+
+      /* Style for checkboxes */
+      .todo-table input[type="checkbox"] {
+        margin-right: 5px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      select,
+      input[type="date"],
+      input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensure padding and border are included in width */
+      }
+
+      select {
+        appearance: none; /* Remove default arrow icon on select */
+        background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>'); /* Custom arrow icon */
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 20px;
+        -webkit-appearance: none; /* For webkit browsers */
+        -moz-appearance: none; /* For firefox */
+      }
+
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+      .header-nav {
+        background: linear-gradient(to left, #7028e4, #e5b2ca);
+
+        display: flex; /* Use flexbox to align header and nav */
+        justify-content: space-between; /* Space elements evenly */
+        align-items: center; /* Align items vertically in the center */
+        background-color: #f4f4f4; /* Set background color for the header */
+        padding: 10px; /* Add padding to the header */
+      }
+
+      nav {
+        background: linear-gradient(to left, #7028e4, #e5b2ca);
+        background-color: #e9ecef; /* Set background color for the navigation */
+        padding: 10px; /* Add padding to the navigation */
+        text-align: right; /* Right-align the navigation content */
+      }
+
+      nav form {
+        display: inline-block; /* Make forms inline-block to align buttons horizontally */
+        margin-right: 10px; /* Add some space between buttons */
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header-nav">
+      <header>
+        <nav>
+        <!-- My Account button-->
+        <form action="{% url 'mentor_list' %}" method="get">
+          <button type="submit">Home</button>
+        </form>
+      
+      
+        
+        </form>
+       
+        <form action="{% url 'book_create' goal.goalId%}" method="post">
+          {% csrf_token %}
+          <button type="submit">Book</button>
+        </form>
+        <form action="{% url 'event_create' goal.goalId%}" method="post">
+          {% csrf_token %}
+          <button type="submit">Event</button>
+        </form>
+        <form action="{% url 'meeting_create' goal.goalId%}" method="post">
+          {% csrf_token %}
+          <button type="submit">Meeting</button>
+        </form>
+        <form action="{% url 'website_create' goal.goalId%}" method="post">
+          {% csrf_token %}
+          <button type="submit">Website</button>
+        </form>
+      </nav>
+      </header>
+    </div>
+
+    <h1>Goal Detail</h1>
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li style="text-align: center; color: red">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <h3>Goal Name: {{ goal.goalName }}</h3>
+    <p><strong>Begin Date:</strong> {{ goal.beginDate }}</p>
+    <p><strong>End Date:</strong> {{ goal.endDate }}</p>
+    <p><strong>URL:</strong> <a href="{{ goal.url }}">{{ goal.url }}</a></p>
+    <p>
+      <strong>Image URL:</strong> <br /><img
+        src="{{ goal.imageUrl }}"
+        alt="Goal Image"
+      />
+    </p>
+    <p><strong>Description:</strong> {{ goal.description }}</p>
+    <p><strong>Price:</strong> {{ goal.price }}</p>
+    <p><strong>Status:</strong> {{ goal.status }}</p>
+    <br />
+    <br />
+    <div class="button-container">
+      {% if goal.goalId %}
+      <form action="{% url 'update_goal' goal_id=goal.goalId %}" method="post">
+        {% csrf_token %}
+        <!-- Form fields -->
+        <button type="submit">Update Goal</button>
+      </form>
+      {% else %}
+      <p>Goal ID is missing or invalid.</p>
+      {% endif %} {% if goal.goalId %}
+      <form action="{% url 'delete_goal' goal.goalId %}" method="post">
+        {% csrf_token %}
+        <input
+          type="submit"
+          value="Delete Goal"
+          onclick="return confirm('Are you sure you want to delete this goal?');"
+        />
+      </form>
+      {% else %}
+      <p>Goal ID is missing or invalid.</p>
+      {% endif %} {% if goal.goalId %}
+      <form action="{% url 'create_todo' goal_id=goal.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Create Todo</button>
+      </form>
+      {% else %}
+      <p>Goal ID is missing or invalid.</p>
+      {% endif %}
+    </div>
+    <h1>Todos:</h1>
+
+    <ul>
+      {% for todo in goal.todo_set.all %}
+      <li>
+        <a href="{% url 'todo_detail' todo.todoId %}">{{ todo.todoName }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <br /><br />
+
+    <h1 style="text-align: center">SERVICES</h1>
+    <br />
+    {% if messages %} {% for message in messages %}
+    <p style="text-align: center; color: red">{{ message }}</p>
+    {% endfor %} {% endif %} {% if goal.mentor %}
+    <form
+      action="{% url 'mentor_goal_todos' goal_id=goal.goalId %}"
+      method="post"
+      style="
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(to left, #7028e4, #e5b2ca);
+      "
+    >
+      {% csrf_token %}
+      <label
+        for="todo_select"
+        style="display: block; margin-bottom: 5px; font-weight: bold"
+        >Select Todo:</label
+      >
+      <select
+        name="todo_id"
+        id="todo_select"
+        required
+        style="
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-sizing: border-box;
+          
+        "
+      >
+        <option value="">Select a Todo</option>
+        {% for mentortodo in goal.mentor.mentortodo_set.all %}
+        <option value="{{ mentortodo.pk }}">{{ mentortodo.todoName }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      <label
+        for="beginDate"
+        style="display: block; margin-bottom: 5px; font-weight: bold"
+        >Begin Date:</label
+      >
+      <input
+        type="date"
+        name="beginDate"
+        required
+        style="
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-sizing: border-box;
+        "
+      />
+      <br />
+      <label
+        for="endDate"
+        style="display: block; margin-bottom: 5px; font-weight: bold"
+        >End Date:</label
+      >
+      <input
+        type="date"
+        name="endDate"
+        required
+        style="
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-sizing: border-box;
+        "
+      />
+      <br />
+      <label
+        for="status"
+        style="display: block; margin-bottom: 5px; font-weight: bold"
+        >Status:</label
+      >
+      <select
+        name="status"
+        required
+        style="
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-sizing: border-box;
+        "
+      >
+        <option value="New">New</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <br />
+      <input
+        type="submit"
+        value="Add Todo"
+        style="
+          width: 60%;
+          padding: 10px;
+          background: linear-gradient(to bottom, #cc2b5e, #753a88);
+          color: #fff;
+          font-size: 16px;
+          font-weight: bold;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        "
+      />
+    </form>
+    {% else %}
+    <!-- Show only error message -->
+    <p style="text-align: center; color: red">
+      Error: Todo could not be added.
+    </p>
+    {% endif %}
+
+    <br />
+    <div style="text-align: center;">
+    <!--BOOK-->
+    <form style="display: inline-block;" action="{% url 'get_books_uploaded_by_both' goal.goalId%}" method="post">
+          {% csrf_token %}
+          <button type="submit">Available Book</button>
+        </form>
+        <form style="display: inline-block;" action="{% url 'get_events_uploaded_by_both' goal.goalId%}" method="post">
+          {% csrf_token %}
+          <button type="submit">Available Event</button>
+        </form>
+        <form style="display: inline-block;" action="{% url 'get_meetings_uploaded_by_both' goal.goalId%}" method="post">
+          {% csrf_token %}
+          <button type="submit">Available Meeting</button>
+        </form>
+        <form style="display: inline-block;" action="{% url 'get_websites_uploaded_by_both' goal.goalId%}" method="post">
+          {% csrf_token %}
+          <button type="submit">Available Website</button>
+        </form>
+      </div>
+    <div class="button-container">
+      <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

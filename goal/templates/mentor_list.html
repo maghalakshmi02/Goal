@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor List</title>
+    <style>
+              body {
+
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+              }
+              .logo {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
+              .header-nav {
+                background: linear-gradient(to left, #7028e4, #e5b2ca);
+                display: flex; /* Use flexbox to align header and nav */
+                justify-content: space-between; /* Space elements evenly */
+                align-items: center; /* Align items vertically in the center */
+                background-color: #f4f4f4; /* Set background color for the header */
+                padding: 10px; /* Add padding to the header */
+              }
+
+              nav {
+                background: linear-gradient(
+                  to leftt,
+                  #16bffd,
+                  #cb3066
+                ); /* Set background color for the navigation */
+                padding: 10px; /* Add padding to the navigation */
+                text-align: right; /* Right-align the navigation content */
+              }
+
+              nav form {
+                display: inline-block; /* Make forms inline-block to align buttons horizontally */
+                margin-right: 10px; /* Add some space between buttons */
+              }
+
+              button {
+                padding: 10px 20px; /* Add padding to buttons */
+                background: linear-gradient(
+                  to bottom,
+                  #cc2b5e,
+                  #753a88
+                ); /* Button background color */
+                color: #fff; /* Button text color */
+                border: none; /* Remove button border */
+                border-radius: 5px; /* Add border radius to buttons */
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease; /* Smooth transition for button hover */
+              }
+
+              button:hover {
+                background-color: #0056b3; /* Change background color on hover */
+              }
+              ul {
+                text-align-center;
+                list-style: none; /* Remove default list styles */
+                padding: 0; /* Remove default padding */
+              }
+
+              .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column; /* Align items vertically */
+        }
+
+        li {
+          width: 50%;
+          background: linear-gradient(to left, #7028e4, #e5b2ca);
+          margin-bottom: 20px;
+          padding: 20px;
+          background-color: #f9f9f9;
+          border-radius: 5px;
+        }
+
+
+              li strong {
+                color: #007bff; /* Set color for mentor titles */
+              }
+              .mentor-goal {
+                border: 1px solid #ccc; /* Add border */
+                border-radius: 5px; /* Add border radius */
+                padding: 20px; /* Add padding */
+                margin-bottom: 20px; /* Add margin between mentor goals */
+
+              }
+
+              .mentor-title {
+                font-weight: bold; /* Make the title bold */
+                color: #007bff; /* Set title color */
+              }
+
+              .mentor-details {
+                margin-top: 10px; /* Add space between title and details */
+              }
+    </style>
+  </head>
+  <body>
+    <div class="header-nav">
+      <header>
+        <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="logo" />
+        <!-- My Account button-->
+      </header>
+      <nav>
+        <form action="{% url 'my_account' %}" method="get">
+          <button type="submit">My Account</button>
+        </form>
+        <!-- Navigation buttons-->
+        <form action="{% url 'create_goal' %}" method="get">
+          <button type="submit">Goal</button>
+        </form>
+        <form action="{% url 'create_mentor' %}" method="get">
+          <button type="submit">To Be Mentor</button>
+        </form>
+        <form action="{% url 'my_goals' %}" method="get">
+          <button type="submit">My Goals</button>
+        </form>
+        <form action="{% url 'user_mentor_titles' %}" method="get">
+          <button type="submit">Mentor Goals</button>
+        </form>
+        <!-- Logout button-->
+        <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+      </nav>
+    </div>
+
+    <h1 style="text-align: center">Mentor Goals</h1>
+    <ul class="container">
+      {% for mentor in mentors %}
+      <li class="mentor-goal">
+        <div class="mentor-title">
+          <a href="{% url 'add_to_goal' mentor.mentorId %}">
+            <strong>{{ mentor.title }}</strong><br />
+          </a>
+        </div>
+        <div class="mentor-details">
+          Description: {{ mentor.description }}<br />
+          Price: {{ mentor.price }}<br />
+          Ratings: {{ mentor.ratings }}<br />
+          Created by: {{ mentor.userId.username }}<br />
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

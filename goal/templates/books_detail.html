@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book Detail</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        background: linear-gradient(to left, #7028e4, #e5b2ca);
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      p {
+        margin-bottom: 10px;
+      }
+
+      .label {
+        font-weight: bold;
+        color: #555;
+      }
+      .containerz {
+        display: flex;
+        justify-content: flex-start; /* Align buttons to the left */
+        align-items: center;
+        margin-bottom: 20px; /* Add margin for spacing */
+      }
+
+      .containerz form,
+      .back-button {
+        margin-right: 5px; /* Add margin between buttons */
+      }
+
+      .containerz form:last-child,
+      .back-button {
+        margin-right: 0; /* Remove margin from the last button */
+      }
+
+      .containerz form button,
+      .back-button {
+        width: 150px; /* Adjust the width for larger buttons */
+      }
+      .back-button {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .back-button a {
+        padding: 10px 20px;
+        background-color: #28a745; /* Custom background color for buttons */
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button a:hover {
+        background-color: #218838; /* Custom hover color for buttons */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 style="text-align: center">Book Detail</h2>
+      <p class="label" style="text-align: center">
+        {{ book.mentor.mentorName }}
+      </p>
+
+      <p class="label">Title: {{ book.title }}</p>
+
+      <p class="label">Author: {{ book.author }}</p>
+
+      <p class="label">Ratings: {{ book.ratings }}</p>
+
+      <p class="label">ISBN: {{ book.isbn }}</p>
+
+      <p class="label">Description: {{ book.description }}</p>
+
+      <p class="label">URL: <a href="{{ book.url }}">{{ book.url }}</a></p>
+    </div>
+    <br /><br />
+    <div class="containerz">
+      <!-- Update Button -->
+      <form action="{% url 'books_edit' book.pk%}" method="get">
+        <button
+          style="background: linear-gradient(to right, #cc2b5e, #753a88)"
+          type="submit"
+        >
+          Update Book
+        </button>
+      </form>
+      <br />
+      <!-- Delete Button -->
+      <form action="{% url 'books_delete' book.pk%}" method="post">
+        {% csrf_token %}
+        <button
+          style="background: linear-gradient(to right, #cc2b5e, #753a88)"
+          type="submit"
+          onclick="return confirm('Are you sure you want to delete your account?');"
+        >
+          Delete Book
+        </button>
+      </form>
+
+      <button class="back-button" onclick="goBack()">Go Back</button>
+    </div>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

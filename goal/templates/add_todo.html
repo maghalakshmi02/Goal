@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add to todo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+
+      h2,
+      h3 {
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      form {
+        margin-top: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="date"],
+      input[type="url"],
+      select {
+        width: 60%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      .back-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <table class="todo-table">
+        <thead>
+          <tr>
+            <th>Todo Name</th>
+            <th>Description</th>
+            <th>Url</th>
+            <th>Image Url</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for mentortodo in mentor_todos %}
+          <tr>
+            <td>{{ mentortodo.todoName }}</td>
+            <td>{{ mentortodo.description }}</td>
+            <td><a href="{{ mentortodo.url }}">{{ mentortodo.url }}</a></td>
+            <td>
+              <a href="{{ mentortodo.imageUrl }}">{{ mentortodo.imageUrl }}</a>
+            </td>
+            <td>
+              <input
+                type="date"
+                name="begin_date_{{ mentortodo.id }}"
+                required
+              />
+            </td>
+            <td>
+              <input type="date" name="end_date_{{ mentortodo.id }}" required />
+            </td>
+            <td>
+              <select name="status_{{ mentortodo.id }}" required>
+                <option value="New">New</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <input type="hidden" name="todo_id" value="{{ todo_id }}" />
+      <button type="submit">Add Todos</button>
+    </form>
+  </body>
+</html>

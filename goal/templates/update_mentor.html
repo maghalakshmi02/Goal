@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Mentor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      form {
+        background: linear-gradient(to left, #7028e4, #e5b2ca);
+        width: 40%;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      select {
+        width: 70%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      textarea {
+        width: 70%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      button[type="submit"],
+      .back-button {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        display: block;
+        width: 40%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+      }
+
+      button[type="submit"]:hover,
+      .back-button:hover {
+        background-color: #0056b3;
+      }
+      .button-container {
+            text-align: center;
+        }
+        .button-container button,
+        .button-container a {
+            display: inline-block;
+            margin: 5px; /* Adjust margin as needed */
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .button-container button:hover,
+        .button-container a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+  </head>
+<body>
+    <h1>Update Mentor</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ mentor.title }}" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required>{{ mentor.description }}</textarea>
+
+        <label for="price">Price:</label>
+        <select id="price" name="price" required>
+            {% for value, label in form.fields.price.choices %}
+                <option value="{{ value }}" {% if value == mentor.price %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" value="{{ mentor.amount }}" required>
+
+        <label for="discount">Discount:</label>
+        <input type="number" id="discount" name="discount" value="{{ mentor.discount}}"  required>
+
+        <label for="currencyType">CurrencyType:</label>
+        <input type="text" id="currencyType" name="currencyType" value="{{ mentor.currencyType}}" required>
+
+        <label for="ratings">Ratings:</label>
+        <input type="number" id="ratings" name="ratings" value="{{ mentor.ratings }}" required>
+
+        <label for="availability">Availability:</label>
+        <select id="availability" name="availability" required>
+            <option value="true" {% if mentor.availability == 'true' %}selected{% endif %}>Available</option>
+            <option value="false" {% if mentor.availability == 'false' %}selected{% endif %}>Not Available</option>
+        </select>
+<br/>
+        <div class="button-container">
+            <button type="submit">Update Mentor</button>
+            <a style="background: linear-gradient(to right, #cc2b5e, #753a88);"href="{% url 'mentor_detail' mentor_id=mentor.pk %}">Back</a>
+        </div>
+
+    </form>
+    <br>
+    
+</body>
+</html>

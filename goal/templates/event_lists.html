@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book List</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .book-item {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 20px;
+      }
+
+      .book-title {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .book-author {
+        color: #555;
+        margin-top: 5px;
+      }
+
+      .book-description {
+        margin-top: 10px;
+      }
+
+      .book-actions {
+        margin-top: 10px;
+      }
+
+      .btn {
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+      }
+
+      .btn:hover {
+        background-color: #0056b3;
+      }
+
+      .btn.delete-btn {
+        background-color: #dc3545;
+      }
+
+      .btn.delete-btn:hover {
+        background-color: #c82333;
+      }
+      .back-button {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .back-button a {
+        padding: 10px 20px;
+        background-color: #28a745; /* Custom background color for buttons */
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button a:hover {
+        background-color: #218838; /* Custom hover color for buttons */
+      }
+      .back-button {
+        background: linear-gradient(to left, #cc2b5e, #753a88);
+        width: 150px; /* Adjust the width for larger buttons */
+        padding: 10px 20px; /* Add padding to the buttons */
+        background-color: #007bff; /* Button background color */
+        color: #fff; /* Button text color */
+        border: none; /* Remove button border */
+        border-radius: 5px; /* Apply border radius */
+        cursor: pointer; /* Change cursor to pointer on hover */
+        font-size: 16px; /* Font size */
+        transition: background-color 0.3s ease; /* Smooth transition on hover */
+      }
+
+      .back-button:hover {
+        background-color: #0056b3; /* Button background color on hover */
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Events List</h1>
+    <ul>
+      {% for event in events %}
+      <li>
+        Title: {{ event.title }}
+        <p>Date: {{ event.date }}</p>
+        <p>Description: {{ event.description }}</p>
+        <p>Location: {{ event.location }}</p>
+        <p>Mode: {{ event.mode }}</p>
+        <p>URL: <a href="{{event.url }}">{{ event.url }}</a></p>
+      </li>
+      <hr />
+      {% empty %}
+      <li>No events available</li>
+      {% endfor %}
+    </ul>
+    <button class="back-button" onclick="goBack()">Back</button>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

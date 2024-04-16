@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Goal</title>
+
+<style>
+        body {
+            
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background: linear-gradient(to left, #7028e4, #e5b2ca);
+            width: 40%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            appearance: none;
+        }
+
+        button[type="submit"] {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        width: 60%;
+        margin: 0 auto; /* Align center */
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .back-button {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        display: block;
+        margin: 0 auto;
+        padding: 8px 16px; /* Adjust padding as needed */
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px; /* Adjust font size as needed */
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+        background-color: #0056b3;
+    }
+    .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button-container button {
+            margin-right: 10px;
+        }
+
+        .button-container button:last-child {
+            margin-right: 0;
+        }
+    </style>
+    </head>
+    <body>
+    <h1>Update Goal</h1>
+    <form id="update-goal-form" >
+        <label for="goalName">Goal Name:</label>
+        <input type="text" id="goalName" name="goalName" value="{{ goal.goalName }}" {% if goal.goalName == mentor.title %}readonly{% endif %} required><br>
+<br/>
+       <label for="beginDate">Begin Date:</label>
+        <input type="date" id="beginDate" name="beginDate" value="{{ goal.beginDate|date:'Y-m-d' }}" required><br>
+<br/>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" value="{{ goal.endDate|date:'Y-m-d' }}" min="{{ goal.beginDate|date:'Y-m-d' }}" required><br>
+<br/>
+        <label for="url">URL:</label>
+        <input type="text" id="url" name="url" value="{{ goal.url }}"><br>
+<br/>
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" id="imageUrl" name="imageUrl" value="{{ goal.imageUrl }}"><br>
+<br/>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" {% if goal.goalName == mentor.title %}readonly{% endif %} required>{{ goal.description }}</textarea><br>
+<br/>
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" {% if goal.goalName == mentor.title %}readonly{% endif %} value="{{ goal.price }}"><br>
+<br/>
+        <label for="status">Status:</label>
+        <select id="status" name="status" required>
+            <option value="New" {% if goal.status == 'New' %} selected {% endif %}>New</option>
+            <option value="In Progress" {% if goal.status == 'In Progress' %} selected {% endif %}>In Progress</option>
+            <option value="Completed" {% if goal.status == 'Completed' %} selected {% endif %}>Completed</option>
+        </select><br/> <br/>
+
+        <div class="button-container">
+        <button type="submit">Update Goal</button>
+        <button class="back-button" onclick="goBack()">Back</button>
+
+
+    </div>
+    </form>
+
+    <script>
+    function goBack() {
+        window.history.back();
+    }
+
+        document.getElementById("update-goal-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Extract form data
+            var formData = new FormData(this);
+
+            // Construct and send POST request to Django server
+            fetch("{% url 'update_goal' goal_id=goal.goalId %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}", // Include CSRF token in headers
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirect to goal detail page upon successful update
+                    window.location.href = "{% url 'goal_detail' goal_id=goal.goalId %}";
+                } else {
+                    console.error("Failed to update goal");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>

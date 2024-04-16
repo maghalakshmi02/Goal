@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Confirm Meeting Deletion</title>
+  </head>
+  <body>
+    <h2>Confirm Deletion</h2>
+    <p>Are you sure you want to delete the meeting "{{ meeting.title }}"?</p>
+    <form action="{% url 'meetings_delete' pk=meeting.pk %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Delete" class="btn delete-btn" />
+      <a
+        href="{% url 'meetings_list' mentor_id=meeting.mentor_id %}"
+        class="btn cancel-btn"
+        >Cancel</a
+      >
+    </form>
+  </body>
+</html>

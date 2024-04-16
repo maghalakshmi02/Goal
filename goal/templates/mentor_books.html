@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor Books</title>
+  </head>
+  <body>
+    <h1>Books Created by Mentor</h1>
+    <ul>
+      {% for book in mentor_books %}
+      <li>
+        <p class="label">Title: {{ book.title }}</p>
+
+        <p class="label">Author: {{ book.author }}</p>
+
+        <p class="label">Ratings: {{ book.ratings }}</p>
+
+        <p class="label">ISBN: {{ book.isbn }}</p>
+
+        <p class="label">Description: {{ book.description }}</p>
+
+        <p class="label">URL: <a href="{{ book.url }}">{{ book.url }}</a></p>
+      </li>
+      <div class="containerz">
+      <!-- Update Button -->
+      <form action="{% url 'books_edit' book.pk%}" method="get">
+        <button
+          style="background: linear-gradient(to right, #cc2b5e, #753a88)"
+          type="submit"
+        >
+          Update Book
+        </button>
+      </form>
+<br/>
+      <!-- Delete Button -->
+      <form action="{% url 'books_delete' book.pk%}" method="post">
+        {% csrf_token %}
+        <button
+          style="background: linear-gradient(to right, #cc2b5e, #753a88)"
+          type="submit"
+          onclick="return confirm('Are you sure you want to delete your account?');"
+        >
+          Delete Book
+        </button>
+      </form>
+      <!-- You can display other book details here -->
+      {% endfor %}
+    </ul>
+  </body>
+</html>

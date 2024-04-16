@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      form {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 500px;
+        margin: 0 auto;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="email"] {
+        width: 60%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+        margin: 0 auto; /* Center the button horizontally */
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+      .signup-button {
+        display: inline-block;
+        width: calc(70px + 20px);
+        padding: 10px;
+        background: linear-gradient(to right, #1cb5e0, #000851);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .signup-button:hover {
+        background: linear-gradient(to right, #000851, #1cb5e0);
+      }
+      .back-button {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .back-button a {
+        padding: 10px 20px;
+        background: linear-gradient(to bottom, #1cb5e0, #000851);
+        background-color: #28a745; /* Custom background color for buttons */
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button a:hover {
+        background-color: #218838; /* Custom hover color for buttons */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Register</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+
+      <div class="back-button">
+        <button class="signup-button" type="submit">Register</button>
+        <a href="{% url 'login' %}">Back</a>
+      </div>
+    </form>
+  </body>
+</html>

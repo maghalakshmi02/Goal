@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Mentor Titles</title>
+  </head>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    ul {
+      list-style: none; /* Remove default list styles */
+      padding: 0; /* Remove default padding */
+    }
+    li {
+      width: 50%;
+
+      background: linear-gradient(to left, #7028e4, #e5b2ca);
+      margin-bottom: 20px; /* Add space between mentor items */
+      padding: 20px; /* Add padding to mentor items */
+      background-color: #f9f9f9; /* Set background color for mentor items */
+      border-radius: 5px; /* Add border radius to mentor items */
+    }
+
+    li strong {
+      color: #007bff; /* Set color for mentor titles */
+    }
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .button-container button,
+    .back-button {
+      margin: 0 5px; /* Add margin between buttons */
+    }
+
+    .button-container form {
+      display: inline-block;
+    }
+    .back-button {
+      background: linear-gradient(to right, #cc2b5e, #753a88);
+      display: inline-block;
+      margin: 0 auto;
+      padding: 8px 16px; /* Adjust padding as needed */
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px; /* Adjust font size as needed */
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+    .header-nav {
+      background: linear-gradient(to left, #7028e4, #e5b2ca);
+      display: flex; /* Use flexbox to align header and nav */
+      justify-content: space-between; /* Space elements evenly */
+      align-items: center; /* Align items vertically in the center */
+      background-color: #f4f4f4; /* Set background color for the header */
+      /* Add padding to the header */
+    }
+
+    nav {
+      background: linear-gradient(to left, #7028e4, #e5b2ca);
+      background-color: #e9ecef; /* Set background color for the navigation */
+      padding: 10px; /* Add padding to the navigation */
+      text-align: right; /* Right-align the navigation content */
+    }
+
+    nav form {
+      display: inline-block; /* Make forms inline-block to align buttons horizontally */
+      margin-right: 10px; /* Add some space between buttons */
+    }
+  </style>
+  <body>
+    <header>
+      <!-- My Account button-->
+    </header>
+    <nav>
+      <!-- Navigation buttons-->
+      <form action="{% url 'mentor_list' %}" method="get">
+        <button type="submit" class="back-button">Home</button>
+      </form>
+      <form action="{% url 'create_goal' %}" method="get">
+        <button type="submit" class="back-button">Customized Goal</button>
+      </form>
+      <form action="{% url 'create_mentor' %}" method="get">
+        <button type="submit" class="back-button">Mentor Goals</button>
+      </form>
+
+      <form action="{% url 'my_goals' %}" method="get">
+        <button type="submit" class="back-button">My Goals</button>
+      </form>
+      <!-- Logout button-->
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="back-button">Logout</button>
+      </form>
+    </nav>
+
+    <h1 style="text-align: center">Mentor Titles Created by You</h1>
+    <ul style="display: flex; flex-direction: column; align-items: center">
+      {% for mentor in user_mentor_titles %}
+      <li>
+        <a href="{% url 'mentor_detail' mentor.mentorId %}">
+          <strong>{{ mentor.title }}</strong> </a
+        ><br />
+        Description: {{ mentor.description }}
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="button-container">
+      <button class="back-button" onclick="goBack()">Back</button>
+    </div>
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>

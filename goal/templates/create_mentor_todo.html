@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Mentor Todo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+
+      form {
+        background: linear-gradient(to left, #7028e4, #e5b2ca);
+        width: 40%;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      input[type="submit"] {
+        background: linear-gradient(to right, #cc2b5e, #753a88);
+        display: inline-block; /* Display as inline block */
+        width: auto; /* Adjust width automatically */
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        margin-right: 10px; /* Add right margin for spacing */
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      .back-button {
+        display: inline-block; /* Display as inline block */
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .back-button a {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button a:hover {
+        background-color: #0056b3;
+      }
+      .small-input {
+        width: 200px; /* Adjust the width as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Create Mentor Todo</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <div class="back-button">
+        <input type="submit" value="Create Todo" />
+        <a
+          style="background: linear-gradient(to right, #cc2b5e, #753a88)"
+          href="{% url 'mentor_detail' mentor_id=mentor.pk %}"
+          >Back</a
+        >
+      </div>
+    </form>
+  </body>
+</html>
